@@ -93,12 +93,18 @@ public class MainActivity extends Activity {
         double operandOne;
         double operandTwo;
         try {
+
             operandOne = getOperand(mOperandOneEditText);
             operandTwo = getOperand(mOperandTwoEditText);
         } catch (NumberFormatException nfe) {
             Log.e(TAG, "NumberFormatException", nfe);
-            mResultTextView.setText(getString(R.string.computationError));
-            return;
+            if (mOperandOneEditText.getText().toString().isEmpty()) {
+                operandTwo = getOperand(mOperandTwoEditText);
+                operandOne = 0;
+            } else {
+                operandTwo = 0;
+                operandOne = getOperand(mOperandOneEditText);
+            }
         }
 
         String result;
